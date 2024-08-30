@@ -1,9 +1,9 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
 
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { TabBarIcon } from '@/components/navigation/TabBarIcon';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -15,23 +15,32 @@ export default function TabLayout() {
         headerShown: false,
       }}>
       <Tabs.Screen
-        name="index"
+        name='index'
         options={{
           title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
-          ),
+          tabBarIcon: () => {
+            return <TabBarIcon source={require('../../assets/icons/chart.png')}/>
+          }
         }}
       />
       <Tabs.Screen
-        name="explore"
+          name='price'
+          options={{
+            title: 'Price',
+            tabBarIcon: () => {
+              return <TabBarIcon source={require('../../assets/icons/price.png')}/>
+            }
+          }}
+      />
+      <Tabs.Screen
+        name='account'
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
-          ),
+          title: 'Account',
+          tabBarIcon: () => {
+            return <TabBarIcon source={require('../../assets/icons/account.png')}/>
+          }
         }}
       />
     </Tabs>
-  );
+  )
 }
