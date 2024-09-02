@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Animated, StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
+import { Colors } from "@/constants/Colors";
+import { useColorScheme } from '@/hooks/useColorScheme';
+
 interface Props {
     notifText: string;
 }
@@ -9,6 +12,8 @@ export const Notification: React.FC<Props> = ({ notifText }) => {
 
     const [visible, setVisible] = useState(false);
     const translateAnim = useRef(new Animated.Value(100)).current;
+
+    const colorScheme = useColorScheme() || 'light';
 
     useEffect(() => {
         if (notifText) {
@@ -40,11 +45,11 @@ export const Notification: React.FC<Props> = ({ notifText }) => {
 
     return (
         <View style={styles.outerContainer}>
-        <Animated.View style={[styles.notificationContainer, { transform: [{ translateX: translateAnim }] }]}>
-            <Text style={styles.notifText}>{notifText}</Text>
+        <Animated.View style={[styles.notificationContainer, { transform: [{ translateX: translateAnim }] }, {backgroundColor: Colors[colorScheme].background}]}>
+            <Text style={[styles.notifText, {color: Colors[colorScheme].text}]}>{notifText}</Text>
             <TouchableOpacity onPress={hideNotification} style={styles.closeButton}>
-            <Text style={styles.closeButtonText}>X</Text>
-            </TouchableOpacity>
+            <Text style={[styles.closeButtonText, {color: Colors[colorScheme].text}]}>X</Text>
+            </TouchableOpacity> 
         </Animated.View>
         </View>
     );

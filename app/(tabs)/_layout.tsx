@@ -3,7 +3,7 @@ import React from 'react';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { Colors } from '@/constants/Colors';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -13,6 +13,9 @@ export default function TabLayout() {
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: false,
+        tabBarStyle: {
+          paddingTop: 10,
+        },
       }}>
       <Tabs.Screen
         name='index'

@@ -2,6 +2,9 @@ import { Notification } from "@/components/Notification";
 import { useState } from "react";
 import { Image, StyleSheet, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from "react-native";
 
+import { useColorScheme } from '@/hooks/useColorScheme';
+import { Colors } from "@/constants/Colors";
+
 export default function accountScreen() {
     const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -10,6 +13,8 @@ export default function accountScreen() {
 
     const [errorMessage, setErrorMessage] = useState('')
     const [alertMessage, setAlertMessage] = useState('');
+
+    const colorScheme = useColorScheme() || 'light';
 
     const eyeIcon = passwordVisible
         ? require('../../assets/icons/eye-closed.png') 
@@ -30,7 +35,7 @@ export default function accountScreen() {
             <View style={styles.loginCont}>
                 <Text style={styles.loginTitle}>Login to account</Text>
                     <TextInput
-                        style={styles.emailInput}
+                        style={[styles.emailInput, { color: Colors[colorScheme].text }]}
                         placeholder="Email"
                         keyboardType="email-address"
                         autoCapitalize="none"
@@ -39,7 +44,7 @@ export default function accountScreen() {
                     />
                     <View style={styles.passCont}>
                         <TextInput
-                            style={styles.passInput}
+                             style={[styles.passInput, { color: Colors[colorScheme].text }]}
                             placeholder="Password"
                             secureTextEntry={!passwordVisible}
                             value={password}
