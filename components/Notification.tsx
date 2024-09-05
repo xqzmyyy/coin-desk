@@ -56,7 +56,6 @@ export const Notification: React.FC<Props> = ({ notifText }) => {
 };
 
 const styles = StyleSheet.create({
-    
     outerContainer: {
         position: 'absolute',
         top: 40,

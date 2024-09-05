@@ -15,6 +15,7 @@ export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     Ubuntu: require('../assets/fonts/Ubuntu-Regular.ttf'),
+    'Ubuntu-Bold': require('../assets/fonts/Ubuntu-Bold.ttf'),
   });
 
   useEffect(() => {
