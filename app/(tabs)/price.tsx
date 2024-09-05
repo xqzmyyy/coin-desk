@@ -1,26 +1,11 @@
-import { StatusBar, StyleSheet, Text, View } from "react-native";
+import { CurrentPrice } from "@/components/price/CurrentPrice"
+import { Text, View } from "react-native"
 
 export default function priceScreen() {
     return (
         <View>
-            {/* <StatusBar
-                barStyle="default"
-                translucent={true}
-                backgroundColor="transparent"
-            /> */}
             <Text>Price page</Text>
+            <CurrentPrice/>
         </View>
     )
 }
-
-
-// const styles = StyleSheet.create({
-//     container: {
-//         flex: 1,
-//         paddingTop: StatusBar.currentHeight, 
-//         paddingHorizontal: 16,
-//       },
-//       text: {
-//         fontSize: 20,
-//       },
-// })
