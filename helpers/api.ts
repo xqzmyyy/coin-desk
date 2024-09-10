@@ -1,13 +1,13 @@
 export const sendRequest = async (endpoint: string, options?: RequestInit) => {
+    const requestOptions: RequestInit = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        ...options,
+    };
+    
     try {
-        const requestOptions: RequestInit = {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            ...options,
-        };
-
         const req = await fetch('https://api.coindesk.com' + endpoint, requestOptions);
 
         if (!req.ok) {

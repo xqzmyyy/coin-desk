@@ -1,6 +1,7 @@
+import { Colors } from '@/constants/Colors';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import React, { useState, useEffect } from 'react';
-import { Image, StyleSheet, View, Text } from 'react-native';
+import { Image, StyleSheet, View, Text, useColorScheme } from 'react-native';
 
 interface CalendarProps {
   onDateChange: (startDate: Date, endDate: Date) => void;
@@ -17,6 +18,8 @@ export const Calendar: React.FC<CalendarProps> = ({
   const [endDate, setEndDate] = useState(
     initialEndDate > initialStartDate ? initialEndDate : new Date(initialStartDate.getTime() + 86400000)
   );
+
+  const colorScheme = useColorScheme() || 'light'
 
   useEffect(() => {
     onDateChange(startDate, endDate);
@@ -43,7 +46,7 @@ export const Calendar: React.FC<CalendarProps> = ({
   return (
     <View style={styles.calendar}>
         <View style={styles.dateString}>
-            <Text style={styles.dateStringText}>From:</Text>
+            <Text style={[styles.dateStringText, {color: Colors[colorScheme].text}]}>From:</Text>
             <Image 
                 source={require('../assets/icons/calendar.png')} 
                 style={{width: 24, height: 24}}
@@ -56,7 +59,7 @@ export const Calendar: React.FC<CalendarProps> = ({
             />
         </View>
         <View style={styles.dateString}>
-            <Text style={styles.dateStringText}>To:</Text>
+            <Text style={[styles.dateStringText, {color: Colors[colorScheme].text}]}>To:</Text>
             <Image 
                 source={require('../assets/icons/calendar.png')} 
                 style={{width: 24, height: 24}}
