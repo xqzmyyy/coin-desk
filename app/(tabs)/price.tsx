@@ -1,49 +1,42 @@
-import { CurrentPrice } from "@/components/price/CurrentPrice"
-import { HistoricalPrice } from "@/components/price/HistoricalPrice"
-import { StyleSheet, Text, View } from "react-native"
+import React from 'react';
+import { CurrentPrice } from "@/components/price/CurrentPrice";
+import { HistoricalPrice } from "@/components/price/HistoricalPrice";
+import { StyleSheet, View, ScrollView, SafeAreaView, useColorScheme } from "react-native";
+import { Colors } from '@/constants/Colors';
 
-export default function priceScreen() {
+export default function PriceScreen() {
+    const colorScheme = useColorScheme() || 'light';
+
     return (
-        <View style={styles.pageCont}>
-            <View>
-                <CurrentPrice/>
-            </View>
-            <View style={styles.historicalSection}>
-                <View style={styles.historicalContCalendar}>
-                    <HistoricalPrice/>
+        <SafeAreaView style={[styles.container, {backgroundColor: Colors[colorScheme].background}]}>
+            <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+                <View style={styles.currentPriceContainer}>
+                    <CurrentPrice/>
                 </View>
-                <View style={styles.historicalCont}>
-                    <Text>test text</Text>
+                <View style={styles.historicalPriceContainer}>
+                    <HistoricalPrice />
                 </View>
-            </View>
-        </View>
-    )
+            </ScrollView>
+        </SafeAreaView>
+    );
 }
 
 const styles = StyleSheet.create({
-    pageCont: {
-        display: 'flex',
+    container: {
         flex: 1,
-        alignItems: 'center'
+        backgroundColor: '#fff',
     },
 
-    historicalSection: {
+    scrollContent: {
+        flexGrow: 1,
+    },
+
+    currentPriceContainer: {
         padding: 12,
-        width: '100%'
     },
 
-    historicalContCalendar: {
-        backgroundColor: '#B7A7AE',
-        borderTopLeftRadius: 12,
-        borderTopRightRadius: 12,
-        padding: 12
-    },
-
-    historicalCont: {
-        backgroundColor: '#E1D5D9',
+    historicalPriceContainer: {
         padding: 12,
-        borderBottomLeftRadius: 12,
-        borderBottomRightRadius: 12,
-        height: 200 // TEST DELETE THIS
-    },
-})
+        // paddingBottom: 70, // check and change this
+    }
+});

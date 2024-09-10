@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, useColorScheme, View } from "react-native";
 import { sendRequest } from "../../helpers/api";
 import { ErrorBanner } from "../ErrorBanner";
+import { Colors } from "@/constants/Colors";
 
 interface PriceData {
   time: { updated: string };
@@ -25,10 +26,12 @@ export const CurrentPrice = () => {
   const previousRates = useRef<{ [key: string]: number }>({});
   const isInitialLoad = useRef(true);
 
+  const colorScheme = useColorScheme() || 'light'
+
   const getPriceData = async () => {
     const res = await sendRequest("/v1/bpi/currentprice.json");
 
-    if (res.error) return setError(res.message || "Something went wrong. Please try again later.");
+    if (res.error) return setError("Oops.. Error fetching data");
 
     const newPriceData = res as PriceData;
 
@@ -82,7 +85,7 @@ export const CurrentPrice = () => {
           <View style={styles.priceCont}>
             {Object.keys(priceData.bpi).map((currency) => (
               <View key={currency} style={styles.priceString}>
-                <Text style={styles.priceCurrency}>{currency}: </Text>
+                <Text style={[styles.priceCurrency, {color: Colors[colorScheme].text}]}>{currency}: </Text>
                 <Text style={[styles.priceValue, { color: rateColors[currency] }]}>
                   {priceData.bpi[currency].rate}
                 </Text>
