@@ -74,21 +74,26 @@ export const CurrentPrice = () => {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <View style={styles.outerCont}>
       {priceData ? (
-        <View>
-          {Object.keys(priceData.bpi).map((currency) => (
-            <View key={currency} style={styles.priceString}>
-              <Text style={styles.priceCurrency}>{currency}: </Text>
-              <Text style={[styles.priceValue, { color: rateColors[currency] }]}>
-                {priceData.bpi[currency].rate}
-              </Text>
-              {arrowImages[currency] && (
-                <Image source={arrowImages[currency]} style={styles.arrowIcon} />
-              )}
-            </View>
-          ))}
-          <Text style={styles.updateTime}>Last Updated: {priceData.time.updated}</Text>
+        <View style={{display: 'flex', flexDirection: 'column', gap: 15}}>
+          <View style={styles.container}>
+          <Image source={require('../../assets/images/bitcoin.png')} style={{height: 50, width: 50}}/>
+          <View style={styles.priceCont}>
+            {Object.keys(priceData.bpi).map((currency) => (
+              <View key={currency} style={styles.priceString}>
+                <Text style={styles.priceCurrency}>{currency}: </Text>
+                <Text style={[styles.priceValue, { color: rateColors[currency] }]}>
+                  {priceData.bpi[currency].rate}
+                </Text>
+                {arrowImages[currency] && (
+                  <Image source={arrowImages[currency]} style={styles.arrowIcon} />
+                )}
+              </View>
+            ))}
+          </View>
+        </View>
+        <Text style={styles.updateTime}>Last Updated: {priceData.time.updated}</Text>
         </View>
       ) : (
         <ErrorBanner text={error}/>
@@ -98,12 +103,26 @@ export const CurrentPrice = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  outerCont: {
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    padding: 20
+    alignItems: 'center',
+    padding: 20,
+  },
+
+  container: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 20
+  },
+
+  priceCont: {
+    display: 'flex',
+    alignItems: 'flex-start',
   },
 
   priceString: {
@@ -114,13 +133,13 @@ const styles = StyleSheet.create({
   },
 
   priceCurrency: {
-    fontSize: 16,
+    fontSize: 18,
     fontFamily: 'Ubuntu-Bold',
     color: '#312528'
   },
 
   priceValue: {
-    fontSize: 18,
+    fontSize: 20,
     fontFamily: 'Ubuntu-Bold',
   },
 
@@ -133,7 +152,6 @@ const styles = StyleSheet.create({
   updateTime: {
     color: '#58545B',
     fontSize: 12,
-    marginTop: 15
   },
 
   error: {
